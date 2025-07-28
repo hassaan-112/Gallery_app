@@ -19,10 +19,13 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         title: Text("search".tr),
         centerTitle: true,
-      ), 
-      body: Column(children: [
-        TextFormFieldComponent(hintText: "search".tr, controller: searchVM.controller.value, keyboardType: TextInputType.text, focusNode: searchVM.focusNode.value, validator: (value){}, onSubmited: (value){}, onTapedOutside: (){ searchVM.focusNode.value.unfocus(); })
-      ],)
+      ),
+      body: Padding(
+        padding:EdgeInsets.all(10.r),
+        child: Column(children: [
+          TextFormFieldComponent(hintText: "search".tr, controller: searchVM.controller.value, keyboardType: TextInputType.text, focusNode: searchVM.focusNode.value, validator: (value){}, onSubmited: (value){}, onTapedOutside: (val){ searchVM.focusNode.value.unfocus(); },suffixIcon: Icons.search,suffixIconbuttonfunction: (){},)
+        ],),
+      )
     );
   }
 }

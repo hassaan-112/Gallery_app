@@ -12,6 +12,8 @@ class TextFormFieldComponent extends StatefulWidget {
   final FormFieldSetter onSubmited;
   final bool enabled, autoFocus;
   final Function onTapedOutside;
+  final suffixIcon;
+  final suffixIconbuttonfunction;
 
   const TextFormFieldComponent({super.key,
     required this.hintText,
@@ -23,7 +25,9 @@ class TextFormFieldComponent extends StatefulWidget {
     required this.onSubmited,
     this.enabled=true,
     this.autoFocus=false,
-    required this.onTapedOutside
+    required this.onTapedOutside,
+    this.suffixIcon=null,
+    this.suffixIconbuttonfunction=null,
   });
 
   @override
@@ -42,16 +46,19 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
       focusNode: widget.focusNode,
       enabled: widget.enabled,
       autofocus: widget.autoFocus,
+
       onTapOutside: (event){
         widget.onTapedOutside(event);
       },
       decoration: InputDecoration(
+        suffixIcon:IconButton(onPressed: widget.suffixIconbuttonfunction, icon: Icon(widget.suffixIcon)),
         hintText: widget.hintText,
         border: OutlineInputBorder(),
         focusedBorder: border(AppColors.borderGrey),
         enabledBorder: border(AppColors.borderGrey),
         errorBorder: border(AppColors.negativeRed),
         focusedErrorBorder: border(AppColors.negativeRed),
+
       ),
     );
   }
