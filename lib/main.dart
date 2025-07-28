@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gallery_app/res/localization/localization.dart';
+import 'package:gallery_app/res/routes/routes.dart';
+import 'package:gallery_app/res/theme.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,10 +14,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return ScreenUtilInit(
+      designSize: const Size(412, 892),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => GetMaterialApp(
+        title: 'Flutter Demo',
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+
+        // ThemeData(
+        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // ),
+        getPages: AppRoutes.appRoutes(),
+        translations: languages(),
+        locale: Locale("en","US"),
+        fallbackLocale: Locale("en","US"),
       ),
     );
   }

@@ -7,6 +7,7 @@ class AppColors{
   static const Color secondaryBlack = Color(0xff1B1C1E);
   static const Color white = Color(0xffffffff);
   static const Color black = Color(0xff000000);
+  static const Color geryContainer = Colors.grey;
   static const Color positiveGreen = Color(0xff21D575);
   static const Color textDarkColor = Color(0xff1B0036);
   static const Color negativeRed = Color(0xffEA4334);
