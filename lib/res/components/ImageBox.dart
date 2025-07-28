@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../colors/appColors.dart';
@@ -7,9 +9,9 @@ class ImageBox extends StatelessWidget {
   Color color;
   double borderRadius;
   String text;
-  FileImage? image;
-
-  ImageBox({super.key, required this.height, required this.width, this.color=AppColors.geryContainer,required this.borderRadius,this.text="No Image",required this.image});
+  File? image;
+  bool update;
+  ImageBox({super.key, required this.height, required this.width, this.color=AppColors.geryContainer,required this.borderRadius,this.text="No Image",required this.image,required this.update});
   @override
   Widget build(BuildContext context) {
     return image==null?Container(
@@ -29,9 +31,9 @@ class ImageBox extends StatelessWidget {
       height:height,
       width:width,
       decoration: BoxDecoration(
-        color: color,
+        color: AppColors.transparent,
         borderRadius: BorderRadius.circular(borderRadius),
-        image:DecorationImage(image:image!,fit: BoxFit.cover)
+        image:DecorationImage(image:FileImage(image!),fit: BoxFit.fill)
       ),
 
     );

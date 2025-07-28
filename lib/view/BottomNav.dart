@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gallery_app/view/searchScreen.dart';
 import '../view_model/BottomNavVM.dart';
 import 'package:get/get.dart';
 import 'HomeScreen.dart';
@@ -14,10 +15,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final navBarVM = Get.put(NavBarViewModel());
-    List<Widget> pages = [HomeScreen()];
+    List<Widget> pages = [HomeScreen(),SearchScreen()];
 
     return Scaffold(
-      body: IndexedStack(index: navBarVM.index, children: pages),
+      body: Obx(()=> IndexedStack(index: navBarVM.index, children: pages)),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           onTap: (value) {

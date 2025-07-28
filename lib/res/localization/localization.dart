@@ -7,6 +7,7 @@ class languages extends Translations{
       "splashScreen":"Gallery",
       "localImages":"Local Images",
       "no_image":"No Image",
+      "search":"Search",
 
     }
   };
