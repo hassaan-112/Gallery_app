@@ -8,6 +8,7 @@ class languages extends Translations{
       "localImages":"Local Images",
       "no_image":"No Image",
       "search":"Search",
+      "try_again":"Try again",
 
     }
   };

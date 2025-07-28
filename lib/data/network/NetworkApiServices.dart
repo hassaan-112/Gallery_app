@@ -12,9 +12,9 @@ import 'baseApiServices.dart';
 class NetworkApiServices extends BaseApiServices{
   var ResponseJson;
   @override
-  Future getApi(String url) async {
+  Future getApi(String url,Map<String,String> header) async {
     try{
-      final responce =await http.get(Uri.parse(url)).timeout(Duration(seconds: 10));
+      final responce =await http.get(Uri.parse(url),headers:header).timeout(Duration(seconds: 10));
       ResponseJson = ReturnResponse(responce);
     }
     on SocketException {
@@ -57,9 +57,9 @@ class NetworkApiServices extends BaseApiServices{
         dynamic responseJson = jsonDecode(response.body);
         return responseJson;
       case 400:
-        dynamic responseJson = jsonDecode(response.body);
-        return responseJson;
-    // throw BadRequestException("bad request${response.body}");
+        // dynamic responseJson = jsonDecode(response.body);
+        // return responseJson;
+        throw BadRequestException("bad request${response.body}");
 
       default:
         throw OtherExceptions("Something went wrong ${response.statusCode}");
