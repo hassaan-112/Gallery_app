@@ -62,6 +62,7 @@ class _SplashscreenState extends State<Splashscreen> {
               "splashScreen".tr,
               style: Theme.of(context).textTheme.displayLarge,
             ),
+            // Text("Temp",style: GoogleFonts.poppins(fontSize: 20,fontWeight: FontWeight.bold),)
           ],
         ),
       ),

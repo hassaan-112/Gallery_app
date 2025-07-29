@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-
 import '../data/response/status.dart';
 import '../model/photosModel.dart';
 import '../repository/searchRepository.dart';
 import '../res/colors/appColors.dart';
 import '../utils/Utils.dart';
+
+
 
 class SearchViewModel extends GetxController {
   RxInt selectedIndex = 0.obs;
