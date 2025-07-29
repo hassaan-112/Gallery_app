@@ -1,17 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import '../colors/appColors.dart';
 class ImageBox extends StatelessWidget {
-  double height;
-  double width;
-  Color color;
-  double borderRadius;
-  String text;
-  File? image;
-  bool update;
-  ImageBox({super.key, required this.height, required this.width, this.color=AppColors.geryContainer,required this.borderRadius,this.text="No Image",required this.image,required this.update});
+  final double height;
+  final double width;
+  final Color color;
+  final double borderRadius;
+  final String text;
+  final File? image;
+  final bool update;
+  const ImageBox({super.key, required this.height, required this.width, this.color=AppColors.geryContainer,required this.borderRadius,this.text="no image",required this.image,required this.update});
   @override
   Widget build(BuildContext context) {
     return image==null?Container(

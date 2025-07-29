@@ -8,6 +8,7 @@ import '../res/colors/appColors.dart';
 import '../utils/Utils.dart';
 
 class SearchViewModel extends GetxController {
+  RxInt selectedIndex = 0.obs;
   final status =Status.IDLE.obs;
   final _searchRepository = SearchRepository();
   final controller = TextEditingController().obs;
@@ -15,15 +16,13 @@ class SearchViewModel extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   RxBool isSearch = false.obs;
   RxBool isLoading = false.obs;
-  PictureClass? pictureClass=null;
-  Rx<PictureClass> pictureClassRx=PictureClass().obs;
+  PictureClass? pictureClass;
   RxString error="".obs;
 
   void setStatus(Status status)=>{this.status.value=status};
-
+  void setSelectedIndex(int index) {selectedIndex.value = index;}
   Future<void> search() async {
     setStatus(Status.LOADING);
-    print("search vm");
     _searchRepository
         .getPhotos(controller.value.text)
         .then((value) {

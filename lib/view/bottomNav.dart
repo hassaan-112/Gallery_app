@@ -29,12 +29,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
-              label: "Home",
+              label: "home".tr,
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "search".tr),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings_outlined),
-              label: "Settings",
+              label: "settings".tr,
             ),
           ],
         ),

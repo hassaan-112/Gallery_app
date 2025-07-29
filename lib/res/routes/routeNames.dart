@@ -5,6 +5,7 @@ class RouteName{
   static const String addImageScreen = "/addImageScreen";
   static const String SearchScreen = "/searchScreen";
   static const String SettingsScreen = "/settingsScreen";
+  static const String ImageDetailScreen = "/imageDetailScreen";
 
 
 }

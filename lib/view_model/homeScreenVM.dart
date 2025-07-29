@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -26,13 +25,13 @@ class HomeScreenViewModel extends GetxController {
   void addImage(File? image){
 
     if(this.image==null){
-      Utils.toast("Please Select Image", AppColors.negativeRed);
+      Utils.toast("p_select_image".tr, AppColors.negativeRed);
       return;
     }
     images.add(image);
     this.image=null;
     updater.value=!updater.value;
-    Utils.toast("Image Added", AppColors.positiveGreen);
+    Utils.toast("image_added".tr, AppColors.positiveGreen);
   }
   void removeImage(int index){
     images.removeAt(index);

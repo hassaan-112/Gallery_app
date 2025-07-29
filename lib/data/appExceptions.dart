@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class AppExceptions implements Exception{
   final _message;
   final _prefix;
@@ -11,11 +13,11 @@ class AppExceptions implements Exception{
 
 class InternetExceptions extends AppExceptions{
 
-  InternetExceptions([String ?message]):super(message,'No Internet');
+  InternetExceptions([String ?message]):super(message,'no_internet'.tr);
 }
 class TimeOutExceptions extends AppExceptions{
 
-  TimeOutExceptions([String ?message]):super(message,'Time out');
+  TimeOutExceptions([String ?message]):super(message,'time_out'.tr);
 }
 
 class OtherExceptions extends AppExceptions{

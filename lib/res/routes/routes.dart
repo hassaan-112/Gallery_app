@@ -1,5 +1,6 @@
 import 'package:gallery_app/res/routes/routeNames.dart';
 import 'package:gallery_app/view/bottomNav.dart';
+import 'package:gallery_app/view/imageDetailScreen.dart';
 import 'package:gallery_app/view/settings.dart';
 import 'package:gallery_app/view/splashScreen.dart';
 import 'package:gallery_app/view/addImageScreen.dart';
@@ -13,5 +14,6 @@ class AppRoutes {
     GetPage(name: RouteName.addImageScreen, page: () { return AddImageScreen(); }, transition: Transition.fadeIn,transitionDuration: Duration(milliseconds: 1000)),
     GetPage(name: RouteName.SearchScreen, page: () { return SearchScreen(); }, transition: Transition.fadeIn,transitionDuration: Duration(milliseconds: 1000)),
     GetPage(name: RouteName.SettingsScreen, page: () { return SettingsScreen(); }, transition: Transition.fadeIn,transitionDuration: Duration(milliseconds: 1000)),
+    GetPage(name: RouteName.ImageDetailScreen, page: () { return ImageDetailScreen(); }, transition: Transition.fadeIn,transitionDuration: Duration(milliseconds: 1000)),
   ];
 }

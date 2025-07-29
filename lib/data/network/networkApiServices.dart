@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../appExceptions.dart';
@@ -24,7 +25,7 @@ class NetworkApiServices extends BaseApiServices{
       throw TimeOutExceptions("");
     }
     catch(e){
-      throw OtherExceptions('Something went wrong $e');
+      throw OtherExceptions("${"something_wrong".tr}$e");
     }
     return ResponseJson;
 
@@ -36,16 +37,15 @@ class NetworkApiServices extends BaseApiServices{
   @override
   Future postApi(var data, String url) async{
 
-    print("network api");
     try{
       final responce =await http.post(Uri.parse(url),body: data).timeout(Duration(seconds: 10));
       ResponseJson = ReturnResponse(responce);
     }
     on SocketException {
-      throw InternetExceptions('No Internet');
+      throw InternetExceptions("no_internet".tr);
     }
     catch(e){
-      throw OtherExceptions('Something went wrong $e');
+      throw OtherExceptions("${"something_wrong".tr}$e");
     }
     return ResponseJson;
   }
@@ -59,10 +59,10 @@ class NetworkApiServices extends BaseApiServices{
       case 400:
         // dynamic responseJson = jsonDecode(response.body);
         // return responseJson;
-        throw BadRequestException("bad request${response.body}");
+        throw BadRequestException("${"bad_request".tr}${response.body}");
 
       default:
-        throw OtherExceptions("Something went wrong ${response.statusCode}");
+        throw OtherExceptions("${"something_wrong".tr}${response.statusCode}");
     }
   }
 }

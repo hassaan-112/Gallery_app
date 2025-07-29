@@ -47,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
               suffixIconbuttonfunction: () {
                 if (searchVM.controller.value.text == "") {
                   searchVM.status.value = Status.IDLE;
-                  Utils.toast("please enter text", AppColors.negativeRed);
+                  Utils.toast("enter_text".tr, AppColors.negativeRed);
                 }
                 else if (searchVM.status != Status.LOADING) {
                   searchVM.search();
@@ -74,8 +74,12 @@ class _SearchScreenState extends State<SearchScreen> {
                       mainAxisSpacing: 3.r,
                     ),
                     itemBuilder: (context, index) {
-                      return Stack(children: [
-                        Container(
+                      return InkWell(
+                        onTap: (){
+                          searchVM.setSelectedIndex(index);
+                          Get.toNamed('/imageDetailScreen');
+                        },
+                        child: Container(
                           width: double.infinity,
                           height: double.infinity,
                           decoration: BoxDecoration(
@@ -87,9 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                           ),
                         ),
-                        // Positioned(top: 0,right: 0,child: Container(height: 40.r,width: 40.r,decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.2),borderRadius: BorderRadius.circular(50)) ,child: Center(child: IconButton(onPressed: (){homeScreenVM.removeImage(index);}, icon: Icon(Icons.delete)))),),
-
-                      ],);
+                      );
                     },
                   ),
 

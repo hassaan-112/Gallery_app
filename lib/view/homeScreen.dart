@@ -17,15 +17,16 @@ class _HomeScreenState extends State<HomeScreen> {
     final homeScreenVM = Get.put(HomeScreenViewModel());
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: Text("home".tr),
         centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            30.verticalSpace,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -48,12 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Obx(
                 () => GridView.builder(
                   itemCount: homeScreenVM.images.length,
-
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: Get.width < 400 ? 2 : Get.width<600?3:Get.width<800?4:5,
                     crossAxisSpacing: 3.r,
                     mainAxisSpacing: 3.r,
                   ),
+
                   itemBuilder: (context, index) {
                     return Stack(children: [
                       Container(
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           fit: BoxFit.scaleDown,
                         ),
                       ),
-                    ),
+                                          ),
                       Positioned(top: 0,right: 0,child: Container(height: 40.r,width: 40.r,decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.2),borderRadius: BorderRadius.circular(50)) ,child: Center(child: IconButton(onPressed: (){homeScreenVM.removeImage(index);}, icon: Icon(Icons.delete)))),),
 
                     ],);

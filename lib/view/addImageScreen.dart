@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import '../res/components/ImageBox.dart';
 import '../res/components/buttonComponent.dart';
 import '../view_model/homeScreenVM.dart';
+
 class AddImageScreen extends StatefulWidget {
   const AddImageScreen({super.key});
 
@@ -18,23 +19,76 @@ class _AddImageScreenState extends State<AddImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Add Image"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text("add_image".tr), centerTitle: true),
       body: Column(
         children: [
           20.verticalSpace,
-        Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Obx(()=>ImageBox(height: 130.r, width:130.r, borderRadius: 20.r, image: homeScreenVM.image,update: homeScreenVM.updater.value,)),
-          ButtonComponent(text: "Select Image", onPressed: (){Get.dialog(Dialog(child: ListView( shrinkWrap: true, children: [ListTile(leading: Icon(Icons.camera_alt),title: Text("Camera"),onTap: (){homeScreenVM.selectImage(ImageSource.camera);Get.back();},),Container(color: AppColors.geryContainer,height: 1.h,width: double.infinity,),ListTile(leading: Icon(Icons.photo),title: Text("Gallery"),onTap: (){homeScreenVM.selectImage(ImageSource.gallery);Get.back();},)],)));},color: AppColors.primary,textColor: AppColors.secondaryWhite,width: 110.w,height: 50.h,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Obx(
+                () => ImageBox(
+                  height: 130.r,
+                  width: 130.r,
+                  borderRadius: 20.r,
+                  image: homeScreenVM.image,
+                  update: homeScreenVM.updater.value,
+                ),
+              ),
+              ButtonComponent(
+                text: "select_image".tr,
+                onPressed: () {
+                  Get.dialog(
+                    Dialog(
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          ListTile(
+                            leading: Icon(Icons.camera_alt),
+                            title: Text("camera".tr),
+                            onTap: () {
+                              homeScreenVM.selectImage(ImageSource.camera);
+                              Get.back();
+                            },
+                          ),
+                          Container(
+                            color: AppColors.geryContainer,
+                            height: 1.h,
+                            width: double.infinity,
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.photo),
+                            title: Text("gallery".tr),
+                            onTap: () {
+                              homeScreenVM.selectImage(ImageSource.gallery);
+                              Get.back();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                color: AppColors.primary,
+                textColor: AppColors.secondaryWhite,
+                width: 110.w,
+                height: 50.h,
+              ),
+            ],
+          ),
+          20.verticalSpace,
+          ButtonComponent(
+            text: "add_image".tr,
+            onPressed: () {
+              homeScreenVM.addImage(homeScreenVM.image);
+            },
+            color: AppColors.primary,
+            textColor: AppColors.secondaryWhite,
+            width: 300.w,
+            height: 50.h,
+          ),
         ],
       ),
-          20.verticalSpace,
-          ButtonComponent(text: "Add Image", onPressed: (){homeScreenVM.addImage(homeScreenVM.image);},color: AppColors.primary,textColor: AppColors.secondaryWhite,width: 300.w,height: 50.h,)
-
-    ]));
+    );
   }
 }

@@ -8,7 +8,7 @@ class SettingsViewModel extends GetxController{
   final currentTheme = ThemeMode.system.obs;
   RxInt radioValue = 1.obs;
 
-  void setRadiovalue(int value){radioValue.value=value;}
+  void setRadioValue(int value){radioValue.value=value;}
 
   changeTheme(ThemeMode themeMode){
     _settingsRepository.saveThemeMode(themeMode);
