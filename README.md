@@ -1,16 +1,17 @@
-# gallery_app
+#📸 Flutter Gallery App
+A modern Flutter-based gallery app built using MVVM architecture and GetX for state management.
+Users can:
 
-A new Flutter project.
+-Add photos from camera or gallery
 
-## Getting Started
+-Search online images via the Pexels API
 
-This project is a starting point for a Flutter application.
+-View photographer details and image descriptions
 
-A few resources to get you started if this is your first Flutter project:
+-Switch between light, dark, and system themes
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+-Toggle between English and Urdu languages
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+-Save theme and language settings using SharedPreferences
+
+Built with clean architecture principles using repositories for API and local storage handling.
