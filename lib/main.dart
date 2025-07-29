@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // ),
         getPages: AppRoutes.appRoutes(),
-        translations: languages(),
+        translations: Languages(),
         locale: Locale("en","US"),
         fallbackLocale: Locale("en","US"),
       ),

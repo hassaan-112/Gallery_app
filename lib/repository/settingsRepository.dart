@@ -24,4 +24,15 @@ class SettingsRepository{
       return ThemeMode.system;
     }
   }
+
+  void saveLanguage(String lang)async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("lang", lang);
+  }
+
+  Future<String?> getLanguage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? lang = prefs.getString("lang");
+    return lang;
+  }
 }

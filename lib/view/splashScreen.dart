@@ -20,6 +20,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
     splashVM.getTheme(); //fetch theme from shared preferences
+    splashVM.getLanguage(); //fetch language from shared preferences
     _timer = Timer.periodic(Duration(seconds: 1), (Timer r) {
       if (mounted) {
         setState(() {

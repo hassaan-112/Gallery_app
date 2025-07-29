@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class languages extends Translations{
+class Languages extends Translations{
   @override
   Map<String, Map<String, String>> get keys=>{
     "en_US":{
@@ -33,8 +33,39 @@ class languages extends Translations{
       "system":"System",
       "light":"Light",
       "dark":"Dark",
-
-
+      "switch_language":"Switch Language",
+    },
+    "ur_PK":{
+      "splashScreen":"گیلری",
+      "localImages":"مقامی تصاویر",
+      "no_image":"کوئی تصویر نہیں۔",
+      "search":"تلاش کریں۔",
+      "try_again":"دوبارہ کوشش کریں۔",
+      "search_something":"کچھ تلاش کریں۔",
+      "clear_images":"تمام مقامی تصاویر کو صاف کریں۔",
+      "description":"تفصیل: ",
+      "photographer_id":"فوٹوگرافر کی شناخت: ",
+      "photographer":"فوٹوگرافر کا نام: ",
+      "image_detail":"تصویر کی تفصیل",
+      "no_internet":"انٹرنیٹ نہیں ہے۔",
+      "something_wrong":"کچھ غلط ہو گیا۔",
+      "bad_request":"بری درخواست",
+      "time_out":"وقت ختم",
+      "add_image":"تصویر شامل کریں۔",
+      "image_added":"تصویر شامل کی گئی۔",
+      "select_image":"تصویر منتخب کریں۔",
+      "p_select_image":"براہ کرم تصویر منتخب کریں۔",
+      "camera":"کیمرہ",
+      "gallery":"گیلری",
+      "home":"گھر",
+      "settings":"ترتیبات",
+      "enter_text":"براہ کرم متن درج کریں۔",
+      "select_theme":"تھیم منتخب کریں۔",
+      "images_cleared":"تصاویر صاف کر دی گئیں۔",
+      "system":"سسٹم",
+      "light":"روشنی",
+      "dark":"اندھیرا",
+      "switch_language":"زبان سوئچ کریں۔",
 
     }
   };

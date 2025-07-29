@@ -93,9 +93,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Container(
                   width: double.infinity,
                   height: 50.h,
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
                     "clear_images".tr,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 1,
+              color: Colors.grey,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: GestureDetector(
+                onTap: () {
+                  settingsVM.changeLanguage();
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 50.h,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "switch_language".tr,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       decoration: TextDecoration.underline,
                     ),

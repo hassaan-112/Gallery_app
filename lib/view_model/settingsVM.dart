@@ -21,5 +21,16 @@ class SettingsViewModel extends GetxController{
     radioValue.value = theme == ThemeMode.light ? 2 : theme == ThemeMode.dark ? 3 : 1;
   }
 
+  changeLanguage(){
+
+    if(Get.locale!.languageCode=="en"){
+      Get.updateLocale(Locale("ur","PK"));
+      _settingsRepository.saveLanguage("ur");
+    }else{
+      Get.updateLocale(Locale("en","US"));
+      _settingsRepository.saveLanguage("en");
+    }
+  }
+
 
 }
