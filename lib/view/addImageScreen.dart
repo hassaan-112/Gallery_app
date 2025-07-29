@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:gallery_app/res/colors/appColors.dart';
 import 'package:get/get.dart';
@@ -23,11 +21,6 @@ class _AddImageScreenState extends State<AddImageScreen> {
       appBar: AppBar(
         title: Text("Add Image"),
         centerTitle: true,
-        actions:[
-          IconButton(onPressed: (){
-            Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-          }, icon: Icon(Get.isDarkMode?Icons.light_mode:Icons.dark_mode))
-        ]
       ),
       body: Column(
         children: [

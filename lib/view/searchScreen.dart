@@ -20,15 +20,6 @@ class _SearchScreenState extends State<SearchScreen> {
     final searchVM = Get.put(SearchViewModel());
     return Scaffold(
       appBar: AppBar(title: Text("search".tr), centerTitle: true,
-
-        leading: IconButton(
-          onPressed: () {
-            Get.changeThemeMode(
-              Get.isDarkMode ? ThemeMode.light : ThemeMode.dark,
-            );
-          },
-          icon: Icon(Get.isDarkMode ? Icons.light_mode : Icons.dark_mode),
-        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(10.r),
@@ -42,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
               validator: (value) {return null;},
               onSubmited: (value) {
                 if (value == "") {
-                  Utils.toast("please enter text", AppColors.negativeRed);
+                  searchVM.status.value = Status.IDLE;
                 } else if (searchVM.status == Status.LOADING) {
                 } else {
                   searchVM.search();
@@ -54,7 +45,11 @@ class _SearchScreenState extends State<SearchScreen> {
               },
               suffixIcon: Icons.search,
               suffixIconbuttonfunction: () {
-                if (searchVM.status != Status.LOADING) {
+                if (searchVM.controller.value.text == "") {
+                  searchVM.status.value = Status.IDLE;
+                  Utils.toast("please enter text", AppColors.negativeRed);
+                }
+                else if (searchVM.status != Status.LOADING) {
                   searchVM.search();
                   searchVM.focusNode.value.unfocus();
                 }

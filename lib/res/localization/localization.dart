@@ -10,6 +10,7 @@ class languages extends Translations{
       "search":"Search",
       "try_again":"Try again",
       "search_something":"Search Something",
+      "clear_images":"Clear all local images",
 
     }
   };

@@ -19,15 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Home"),
         centerTitle: true,
-
-        leading: IconButton(
-          onPressed: () {
-            Get.changeThemeMode(
-              Get.isDarkMode ? ThemeMode.light : ThemeMode.dark,
-            );
-          },
-          icon: Icon(Get.isDarkMode ? Icons.light_mode : Icons.dark_mode),
-        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.r),

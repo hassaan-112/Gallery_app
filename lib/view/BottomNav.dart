@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gallery_app/view/Settings.dart';
 import 'package:gallery_app/view/searchScreen.dart';
 import '../view_model/BottomNavVM.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final navBarVM = Get.put(NavBarViewModel());
-    List<Widget> pages = [HomeScreen(),SearchScreen()];
+    List<Widget> pages = [HomeScreen(),SearchScreen(),SettingsScreen()];
 
     return Scaffold(
       body: Obx(()=> IndexedStack(index: navBarVM.index, children: pages)),
@@ -32,8 +33,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             ),
             BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined),
-              label: "Profile",
+              icon: Icon(Icons.settings_outlined),
+              label: "Settings",
             ),
           ],
         ),
