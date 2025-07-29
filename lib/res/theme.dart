@@ -27,7 +27,7 @@ abstract class AppTheme {
     textTheme: _lightTextTheme,
     cardColor: _lightContainerColor, // Light theme container color
     elevatedButtonTheme: _elevatedButtonTheme(Brightness.light),
-    inputDecorationTheme: _inputDecorationTheme(AppColors.secondaryBlack, AppColors.textLightBlack),
+    inputDecorationTheme: _inputDecorationTheme(AppColors.secondaryWhite, AppColors.textLightBlack),
     iconTheme: IconThemeData(color: _primaryColor),
     floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor: _primaryColor, foregroundColor: AppColors.secondaryWhite),
     bottomNavigationBarTheme: _bottomNavigationBarTheme(AppColors.bgColor, _primaryColor, AppColors.textDarkColor),
@@ -114,34 +114,34 @@ abstract class AppTheme {
     hintStyle: GoogleFonts.poppins(color: hintColor),
   );
 
-  static CardTheme _cardTheme(Color bgColor, Color shadowColor) => CardTheme(
-    color: bgColor,
-    shadowColor: shadowColor,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_borderRadius)),
-    elevation: 4,
-  );
+  // static CardTheme _cardTheme(Color bgColor, Color shadowColor) => CardTheme(
+  //   color: bgColor,
+  //   shadowColor: shadowColor,
+  //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_borderRadius)),
+  //   elevation: 4,
+  // );
 
   static SwitchThemeData _switchTheme(Color activeColor) => SwitchThemeData(
-    trackColor: MaterialStateProperty.resolveWith<Color>((states) => states.contains(MaterialState.selected) ? activeColor : Colors.grey),
-    thumbColor: MaterialStateProperty.all(AppColors.secondaryWhite),
+    trackColor: WidgetStateProperty.resolveWith<Color>((states) => states.contains(WidgetState.selected) ? activeColor : Colors.grey),
+    thumbColor: WidgetStateProperty.all(AppColors.secondaryWhite),
   );
 
   static CheckboxThemeData _checkboxTheme(Color activeColor) => CheckboxThemeData(
-    checkColor: MaterialStateProperty.all(AppColors.secondaryWhite),
-    fillColor: MaterialStateProperty.all(activeColor),
+    checkColor: WidgetStateProperty.all(AppColors.secondaryWhite),
+    fillColor: WidgetStateProperty.all(activeColor),
   );
 
   static SliderThemeData _sliderTheme(Color activeColor) => SliderThemeData(
     activeTrackColor: activeColor,
-    inactiveTrackColor: activeColor.withOpacity(0.5),
+    inactiveTrackColor: activeColor.withValues(alpha:  0.5),
     thumbColor: activeColor,
-    overlayColor: activeColor.withOpacity(0.2),
+    overlayColor: activeColor.withValues(alpha:0.2),
     valueIndicatorColor: activeColor,
   );
 
-  static TabBarTheme _tabBarTheme(Color indicatorColor, Color labelColor) => TabBarTheme(
-    indicator: BoxDecoration(border: Border(bottom: BorderSide(color: indicatorColor, width: 2))),
-    labelColor: labelColor,
-    unselectedLabelColor: AppColors.textLightBlack,
-  );
+//   static TabBarTheme _tabBarTheme(Color indicatorColor, Color labelColor) => TabBarTheme(
+//     indicator: BoxDecoration(border: Border(bottom: BorderSide(color: indicatorColor, width: 2))),
+//     labelColor: labelColor,
+//     unselectedLabelColor: AppColors.textLightBlack,
+//   );
 }

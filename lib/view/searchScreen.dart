@@ -117,6 +117,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       ],
                     ),
                   );
+                  case Status.IDLE:
+                    return Center(child:Text("search_something".tr));
               }
             }),
           ],

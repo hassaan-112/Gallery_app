@@ -8,7 +8,7 @@ import '../res/colors/appColors.dart';
 import '../utils/Utils.dart';
 
 class SearchViewModel extends GetxController {
-  final status =Status.LOADING.obs;
+  final status =Status.IDLE.obs;
   final _searchRepository = SearchRepository();
   final controller = TextEditingController().obs;
   final focusNode = FocusNode().obs;

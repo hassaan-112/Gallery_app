@@ -15,6 +15,7 @@ class TextFormFieldComponent extends StatefulWidget {
   final suffixIcon;
   final suffixIconbuttonfunction;
 
+
   const TextFormFieldComponent({super.key,
     required this.hintText,
     this.obscureText=false,
@@ -58,6 +59,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
         enabledBorder: border(AppColors.borderGrey),
         errorBorder: border(AppColors.negativeRed),
         focusedErrorBorder: border(AppColors.negativeRed),
+
 
       ),
     );

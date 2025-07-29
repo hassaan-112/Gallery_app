@@ -9,6 +9,7 @@ class languages extends Translations{
       "no_image":"No Image",
       "search":"Search",
       "try_again":"Try again",
+      "search_something":"Search Something",
 
     }
   };
