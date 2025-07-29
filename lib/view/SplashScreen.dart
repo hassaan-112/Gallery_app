@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gallery_app/res/assets/icons.dart';
@@ -19,6 +18,7 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     super.initState();
+    splashVM.getTheme();
     _timer =Timer.periodic(Duration(seconds: 1), (Timer r) {
       if(mounted){
         setState(() {

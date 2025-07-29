@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../res/colors/appColors.dart';
 import '../utils/Utils.dart';
 import '../view_model/HomeScreenVM.dart';
@@ -15,16 +14,20 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  final settingsVM = Get.put(SettingsViewModel());
+
+  @override
+  void initState() {
+    super.initState();
+    settingsVM.getTheme();
+  }
   @override
   Widget build(BuildContext context) {
     final settingsVM = Get.put(SettingsViewModel());
     final homeVM = Get.put(HomeScreenViewModel());
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Settings"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text("Settings"), centerTitle: true),
       body: Column(
         children: [
           Obx(
@@ -46,10 +49,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   value: 1,
                   groupValue: settingsVM.radioValue.value,
                   onChanged: (value) {
-                    setState(() {
-                      settingsVM.radioValue.value = 1;
+                    if (value != null) {
+                      settingsVM.setRadiovalue(value);
                       settingsVM.changeTheme(ThemeMode.system);
-                    });
+                    }
                   },
                   title: Text("System"),
                 ),
@@ -57,10 +60,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   value: 2,
                   groupValue: settingsVM.radioValue.value,
                   onChanged: (value) {
-                    setState(() {
-                      settingsVM.radioValue.value = 2;
+                    if (value != null) {
+                      settingsVM.setRadiovalue(value);
                       settingsVM.changeTheme(ThemeMode.light);
-                    });
+                    }
                   },
                   title: Text("Light"),
                 ),
@@ -68,10 +71,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   value: 3,
                   groupValue: settingsVM.radioValue.value,
                   onChanged: (value) {
-                    setState(() {
-                      settingsVM.radioValue.value = 3;
+                    if (value != null) {
+                      settingsVM.setRadiovalue(value);
                       settingsVM.changeTheme(ThemeMode.dark);
-                    });
+                    }
                   },
                   title: Text("Dark"),
                 ),
