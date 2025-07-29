@@ -19,7 +19,17 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     final searchVM = Get.put(SearchViewModel());
     return Scaffold(
-      appBar: AppBar(title: Text("search".tr), centerTitle: true),
+      appBar: AppBar(title: Text("search".tr), centerTitle: true,
+
+        leading: IconButton(
+          onPressed: () {
+            Get.changeThemeMode(
+              Get.isDarkMode ? ThemeMode.light : ThemeMode.dark,
+            );
+          },
+          icon: Icon(Get.isDarkMode ? Icons.light_mode : Icons.dark_mode),
+        ),
+      ),
       body: Padding(
         padding: EdgeInsets.all(10.r),
         child: Column(
@@ -29,7 +39,7 @@ class _SearchScreenState extends State<SearchScreen> {
               controller: searchVM.controller.value,
               keyboardType: TextInputType.text,
               focusNode: searchVM.focusNode.value,
-              validator: (value) {},
+              validator: (value) {return null;},
               onSubmited: (value) {
                 if (value == "") {
                   Utils.toast("please enter text", AppColors.negativeRed);
