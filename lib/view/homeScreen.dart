@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../res/colors/appColors.dart';
-import '../view_model/HomeScreenVM.dart';
+import '../view_model/homeScreenVM.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gallery_app/res/components/TextFormFieldComponent.dart';
+import 'package:gallery_app/res/components/textFormFieldComponent.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../data/response/status.dart';
 import '../res/colors/appColors.dart';
 import '../utils/Utils.dart';
-import '../view_model/SearchVM.dart';
+import '../view_model/searchVM.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

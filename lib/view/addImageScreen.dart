@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import '../res/components/ImageBox.dart';
 import '../res/components/buttonComponent.dart';
-import '../view_model/HomeScreenVM.dart';
+import '../view_model/homeScreenVM.dart';
 class AddImageScreen extends StatefulWidget {
   const AddImageScreen({super.key});
 

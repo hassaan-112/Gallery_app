@@ -1,7 +1,7 @@
 import 'package:gallery_app/res/routes/routeNames.dart';
-import 'package:gallery_app/view/BottomNav.dart';
-import 'package:gallery_app/view/Settings.dart';
-import 'package:gallery_app/view/SplashScreen.dart';
+import 'package:gallery_app/view/bottomNav.dart';
+import 'package:gallery_app/view/settings.dart';
+import 'package:gallery_app/view/splashScreen.dart';
 import 'package:gallery_app/view/addImageScreen.dart';
 import 'package:gallery_app/view/searchScreen.dart';
 import 'package:get/get.dart';

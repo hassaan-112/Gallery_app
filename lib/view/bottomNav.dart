@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gallery_app/view/Settings.dart';
+import 'package:gallery_app/view/settings.dart';
 import 'package:gallery_app/view/searchScreen.dart';
-import '../view_model/BottomNavVM.dart';
+import '../view_model/bottomNavVM.dart';
 import 'package:get/get.dart';
-import 'HomeScreen.dart';
+import 'homeScreen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../res/colors/appColors.dart';
 import '../utils/Utils.dart';
-import '../view_model/HomeScreenVM.dart';
-import '../view_model/SettingsVM.dart';
+import '../view_model/homeScreenVM.dart';
+import '../view_model/settingsVM.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

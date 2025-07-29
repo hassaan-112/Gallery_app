@@ -1,4 +1,4 @@
-import 'package:gallery_app/data/network/NetworkApiServices.dart';
+import 'package:gallery_app/data/network/networkApiServices.dart';
 import 'package:gallery_app/model/photosModel.dart';
 
 import '../res/urls/urls.dart';
