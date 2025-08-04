@@ -98,6 +98,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     "clear_images".tr,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       decoration: TextDecoration.underline,
+
                     ),
                   ),
                 ),
