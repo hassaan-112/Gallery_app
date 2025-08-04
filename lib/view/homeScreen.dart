@@ -12,9 +12,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final homeScreenVM = Get.put(HomeScreenViewModel());
+  @override
+  void initState() {
+    super.initState();
+    homeScreenVM.getLocalImages();
+  }
   @override
   Widget build(BuildContext context) {
-    final homeScreenVM = Get.put(HomeScreenViewModel());
     return Scaffold(
       appBar: AppBar(
         title: Text("home".tr),

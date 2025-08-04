@@ -77,15 +77,17 @@ class _AddImageScreenState extends State<AddImageScreen> {
             ],
           ),
           20.verticalSpace,
-          ButtonComponent(
-            text: "add_image".tr,
-            onPressed: () {
-              homeScreenVM.addImage(homeScreenVM.image);
-            },
-            color: AppColors.primary,
-            textColor: AppColors.secondaryWhite,
-            width: 300.w,
-            height: 50.h,
+          Obx(()=>ButtonComponent(
+              isLoading: homeScreenVM.loading.value,
+              text: "add_image".tr,
+              onPressed: () {
+                homeScreenVM.addImage(homeScreenVM.image);
+              },
+              color: AppColors.primary,
+              textColor: AppColors.secondaryWhite,
+              width: 300.w,
+              height: 50.h,
+            ),
           ),
         ],
       ),

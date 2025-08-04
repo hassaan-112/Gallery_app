@@ -87,7 +87,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: GestureDetector(
                 onTap: () {
-                  homeVM.images.clear();
+                  homeVM.deleteAll();
                   Utils.toast("images_cleared".tr, AppColors.positiveGreen);
                 },
                 child: Container(
