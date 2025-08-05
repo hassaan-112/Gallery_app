@@ -3,8 +3,11 @@ import 'package:gallery_app/res/colors/appColors.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import '../permissions.dart';
 import '../res/components/ImageBox.dart';
 import '../res/components/buttonComponent.dart';
+import '../res/components/textFormFieldComponent.dart';
 import '../view_model/homeScreenVM.dart';
 
 class AddImageScreen extends StatefulWidget {
@@ -37,7 +40,9 @@ class _AddImageScreenState extends State<AddImageScreen> {
               ),
               ButtonComponent(
                 text: "select_image".tr,
-                onPressed: () {
+                onPressed: ()async {
+
+                  await Permissions.requestAllPermissions();
                   Get.dialog(
                     Dialog(
                       child: ListView(
@@ -77,6 +82,12 @@ class _AddImageScreenState extends State<AddImageScreen> {
             ],
           ),
           20.verticalSpace,
+          Form(
+            key: homeScreenVM.formKey,
+            child: Column(children: [
+              // TextFormFieldComponen
+
+          ],),),
           Obx(()=>ButtonComponent(
               isLoading: homeScreenVM.loading.value,
               text: "add_image".tr,

@@ -15,6 +15,7 @@ class SearchViewModel extends GetxController {
   final controller = TextEditingController().obs;
   final focusNode = FocusNode().obs;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  RxBool showOptions = true.obs;
   RxBool isSearch = false.obs;
   RxBool isLoading = false.obs;
   PictureClass? pictureClass;
@@ -22,6 +23,7 @@ class SearchViewModel extends GetxController {
 
   void setStatus(Status status)=>{this.status.value=status};
   void setSelectedIndex(int index) {selectedIndex.value = index;}
+
   Future<void> search() async {
     setStatus(Status.LOADING);
     _searchRepository

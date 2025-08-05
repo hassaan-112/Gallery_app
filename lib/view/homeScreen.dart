@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final homeScreenVM = Get.put(HomeScreenViewModel());
+  final homeScreenVM = Get.find<HomeScreenViewModel>();
   @override
   void initState() {
     super.initState();
@@ -51,8 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 500.h,
 
-              child: Obx(
-                () => GridView.builder(
+              child:Obx(
+                    () =>  homeScreenVM.images.isEmpty?Center(child: Text("no_image".tr)):GridView.builder(
                   itemCount: homeScreenVM.images.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: Get.width < 400 ? 2 : Get.width<600?3:Get.width<800?4:5,
@@ -62,18 +62,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   itemBuilder: (context, index) {
                     return Stack(children: [
-                      Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        border: Border.all(width: .5, color: Colors.grey),
-                        image: DecorationImage(
-                          image: FileImage(homeScreenVM.images[index]),
-                          fit: BoxFit.scaleDown,
+                      InkWell(
+                        onTap: (){
+                          homeScreenVM.selectedIndex.value=index;
+                          Get.toNamed('/localImageDetailScreen');
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            border: Border.all(width: .5, color: Colors.grey),
+                            image: DecorationImage(
+                              image: FileImage(homeScreenVM.images[index]),
+                              fit: BoxFit.scaleDown,
+                            ),
+                          ),
                         ),
                       ),
-                                          ),
                       Positioned(top: 0,right: 0,child: Container(height: 40.r,width: 40.r,decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.2),borderRadius: BorderRadius.circular(50)) ,child: Center(child: IconButton(onPressed: (){homeScreenVM.removeImage(index);}, icon: Icon(Icons.delete)))),),
 
                     ],);
