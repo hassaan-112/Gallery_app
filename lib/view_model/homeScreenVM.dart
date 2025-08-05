@@ -70,19 +70,21 @@ class HomeScreenViewModel extends GetxController {
   }
   void addImage(File? image)async {
     if (loading.value) {}
-    else {
+    else if(formKey.currentState!.validate()){
       loading.value = true;
       if (this.image == null) {
         Utils.toast("p_select_image".tr, AppColors.negativeRed);
         loading.value = false;
         return;
       }
-      await _imgRepo.addImage(this.image!);
+      await _imgRepo.addImage(this.image!,titleController.text,descriptionController.text);
       getLocalImages();
       this.image = null;
       updater.value = !updater.value;
-      Utils.toast("image_added".tr, AppColors.positiveGreen);
       loading.value = false;
+    }
+    else{
+      Utils.toast("enter_all_fields".tr, AppColors.negativeRed);
     }
   }
   void removeImage(int index){

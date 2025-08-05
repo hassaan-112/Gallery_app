@@ -61,28 +61,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   itemBuilder: (context, index) {
-                    return Stack(children: [
-                      InkWell(
-                        onTap: (){
-                          homeScreenVM.selectedIndex.value=index;
-                          Get.toNamed('/localImageDetailScreen');
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
-                            border: Border.all(width: .5, color: Colors.grey),
-                            image: DecorationImage(
-                              image: FileImage(homeScreenVM.images[index]),
-                              fit: BoxFit.scaleDown,
-                            ),
+                    return InkWell(
+                      onTap: (){
+                        homeScreenVM.selectedIndex.value=index;
+                        Get.toNamed('/localImageDetailScreen');
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          border: Border.all(width: .5, color: Colors.grey),
+                          image: DecorationImage(
+                            image: FileImage(homeScreenVM.images[index]),
+                            fit: BoxFit.scaleDown,
                           ),
                         ),
                       ),
-                      Positioned(top: 0,right: 0,child: Container(height: 40.r,width: 40.r,decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.2),borderRadius: BorderRadius.circular(50)) ,child: Center(child: IconButton(onPressed: (){homeScreenVM.removeImage(index);}, icon: Icon(Icons.delete)))),),
-
-                    ],);
+                    );
                   },
                 ),
               ),

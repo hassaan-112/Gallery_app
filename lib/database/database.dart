@@ -20,39 +20,68 @@ class DBHelper {
   Future<Database> openDB() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String dbPath = join(directory.path, 'users.db');
+
     return await openDatabase(
-      dbPath,
-      version: 1,
-      onCreate: (db, version) async {
-        await db.execute(
-          'CREATE TABLE images(id INTEGER PRIMARY KEY AUTOINCREMENT,image BLOB)',
-        );
-      },
+        dbPath,
+        version: 4,
+        onCreate: (db, version) async {
+          await db.execute(
+              '''
+          CREATE TABLE images(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            image BLOB,
+            title TEXT,
+            description TEXT,
+            datetime TEXT
+          )
+          '''
+          );
+        },
+        onUpgrade: (db, oldVersion, newVersion) async {
+          await db.execute('DROP TABLE IF EXISTS images');
+          await db.execute(
+              '''
+          CREATE TABLE images(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            image BLOB,
+            title TEXT,
+            description TEXT,
+            datetime TEXT
+          )
+          '''
+          );
+        }
     );
   }
 
-  //add images
-  Future<bool> addImage(Uint8List image) async {
+  // Add image
+  Future<bool> addImage(Uint8List image, String title, String description) async {
     try {
       Database db = await getDB();
-      await db.insert('images', {'image': image});
+      String fullDateTime = DateTime.now().toIso8601String();
+      await db.insert('images', {
+        'image': image,
+        'title': title,
+        'description': description,
+        'datetime': fullDateTime,
+      });
       return true;
     } catch (e) {
       return false;
     }
   }
 
-  // get images
+  // Get all images
   Future<List<Map<String, dynamic>>> getImages() async {
     try {
       Database db = await getDB();
-      List<Map<String, dynamic>> images = await db.query('images');
-      return images;
+      return await db.query('images');
     } catch (e) {
       return [];
     }
   }
 
+  // Delete image by ID
   Future<bool> deleteImage(int id) async {
     try {
       Database db = await getDB();
@@ -63,6 +92,7 @@ class DBHelper {
     }
   }
 
+  // Delete all images
   Future<bool> deleteAll() async {
     try {
       Database db = await getDB();

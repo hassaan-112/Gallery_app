@@ -4,6 +4,8 @@ import 'package:gallery_app/res/components/buttonComponent.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import '../res/components/richTextComponent.dart';
+import '../utils/Utils.dart';
 import '../view_model/homeScreenVM.dart';
 
 class ImageDetailview extends StatefulWidget {
@@ -59,7 +61,7 @@ class _ImageDetailviewState extends State<ImageDetailview> {
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text(homeVM.localImages[index].id.toString()), Text("Date")],
+                            children: [Text(Utils.dateToString(homeVM.localImages[index].date!),style: Theme.of(context).textTheme.titleLarge,), Text(Utils.timeToAmPm(homeVM.localImages[index].date!))],
                           ),
                         ),
                       ),
@@ -120,11 +122,22 @@ class _ImageDetailviewState extends State<ImageDetailview> {
                                                 child: Padding(
                                                   padding:  EdgeInsets.symmetric(horizontal: 20.w),
                                                   child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     mainAxisSize: MainAxisSize.min,
                                                     children: [
-                                                      Text("Path:   ${homeVM.images[index].toString()}"),
+                                                      RichTextComponent("Name", homeVM.localImages[index].title!, context),
+                                                      15.verticalSpace,
+                                                      RichTextComponent("Description", homeVM.localImages[index].description!, context),
+                                                      15.verticalSpace,
+                                                      RichTextComponent("Date", Utils.dateToString(homeVM.localImages[index].date!), context),
+                                                      15.verticalSpace,
+                                                      RichTextComponent("Time", Utils.timeToAmPm(homeVM.localImages[index].date!), context),
+                                                      15.verticalSpace,
+                                                      RichTextComponent("Size", "${homeVM.images[index].lengthSync() ~/ 1024} Kb", context),
+                                                      15.verticalSpace,
+                                                      RichTextComponent("Path", homeVM.images[index].toString(), context),
+
                                                       30.verticalSpace,
                                                       ButtonComponent(text: "Okay", onPressed:(){Get.back();},width: double.infinity,textColor: Theme.of(context).hintColor)
 

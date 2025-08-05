@@ -8,6 +8,7 @@ import '../permissions.dart';
 import '../res/components/ImageBox.dart';
 import '../res/components/buttonComponent.dart';
 import '../res/components/textFormFieldComponent.dart';
+import '../utils/Utils.dart';
 import '../view_model/homeScreenVM.dart';
 
 class AddImageScreen extends StatefulWidget {
@@ -84,10 +85,15 @@ class _AddImageScreenState extends State<AddImageScreen> {
           20.verticalSpace,
           Form(
             key: homeScreenVM.formKey,
-            child: Column(children: [
-              // TextFormFieldComponen
-
-          ],),),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(children: [
+                TextFormFieldComponent(hintText: "title", controller: homeScreenVM.titleController, keyboardType: TextInputType.text, focusNode: homeScreenVM.titleFocusNode, validator: (value){if(value!.isEmpty){return "enter_title".tr;}}, onSubmited:(value){Utils.fieldFocusChange(context, homeScreenVM.titleFocusNode, homeScreenVM.descriptionFocusNode);}, onTapedOutside: (v){homeScreenVM.titleFocusNode.unfocus();}),
+                10.verticalSpace,
+                TextFormFieldComponent(hintText: "description", controller: homeScreenVM.descriptionController, keyboardType: TextInputType.text, focusNode: homeScreenVM.descriptionFocusNode, validator: (value){}, onSubmited:(value){homeScreenVM.descriptionFocusNode.unfocus();}, onTapedOutside: (v){homeScreenVM.descriptionFocusNode.unfocus();}),
+                30.verticalSpace,
+              ],),
+            ),),
           Obx(()=>ButtonComponent(
               isLoading: homeScreenVM.loading.value,
               text: "add_image".tr,
