@@ -36,9 +36,6 @@ class LocalImagesViewModel extends GetxController {
 
   Future<void> getLocalImages() async {
     localImages.value = await _imgRepo.getImages();
-    print(localImages.length);
-
-    Utils.toast("in db ${localImages.length}", AppColors.primary);
     await toFileList();
 
     updater.value = !updater.value;

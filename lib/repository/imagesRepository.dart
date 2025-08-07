@@ -34,10 +34,21 @@ class ImagesRepository {
       int compressedSizeKB = compressedBytes.lengthInBytes ~/ 1024;
 
       if (compressedSizeKB > maxSizeKB) {
-        if (kDebugMode) {
-          print("Image too large even after compression: ${compressedSizeKB}KB");
+        //compressing again
+        compressedBytes = await FlutterImageCompress.compressWithFile(
+          image.absolute.path,
+          quality: 50,
+          format: CompressFormat.jpeg,
+        );
+        if (compressedBytes == null) {
+          Utils.toast("compression_failed".tr, AppColors.negativeRed);
+          return;
         }
-        Utils.toast("image_too_large".tr, AppColors.negativeRed);
+        compressedSizeKB = compressedBytes.lengthInBytes ~/ 1024;
+        if (compressedSizeKB > maxSizeKB) {
+          Utils.toast("image_too_large".tr, AppColors.negativeRed);
+          return;
+        }
         return;
       }
 
