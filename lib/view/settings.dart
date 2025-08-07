@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../res/colors/appColors.dart';
 import '../utils/Utils.dart';
-import '../view_model/homeScreenVM.dart';
+import '../view_model/localImage.dart';
 import '../view_model/settingsVM.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -21,10 +21,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     settingsVM.getTheme();
   }
+
   @override
   Widget build(BuildContext context) {
     final settingsVM = Get.put(SettingsViewModel());
-    final homeVM = Get.put(HomeScreenViewModel());
+    final homeVM = Get.put(LocalImagesViewModel());
 
     return Scaffold(
       appBar: AppBar(title: Text("settings".tr), centerTitle: true),
@@ -39,7 +40,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   30.verticalSpace,
                   Text(
                     "select_theme".tr,
-                    style: Theme.of(context).textTheme.displayMedium
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   10.verticalSpace,
                   RadioListTile(
@@ -78,11 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: 1,
-              color: Colors.grey,
-            ),
+            Container(width: double.infinity, height: 1, color: Colors.grey),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: GestureDetector(
@@ -98,17 +95,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     "clear_images".tr,
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       decoration: TextDecoration.underline,
-
                     ),
                   ),
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: 1,
-              color: Colors.grey,
-            ),
+            Container(width: double.infinity, height: 1, color: Colors.grey),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: GestureDetector(
@@ -128,11 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              height: 1,
-              color: Colors.grey,
-            ),
+            Container(width: double.infinity, height: 1, color: Colors.grey),
           ],
         ),
       ),

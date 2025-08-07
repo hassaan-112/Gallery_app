@@ -4,9 +4,10 @@ import 'package:gallery_app/res/components/buttonComponent.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import '../res/colors/appColors.dart';
 import '../res/components/richTextComponent.dart';
 import '../utils/Utils.dart';
-import '../view_model/homeScreenVM.dart';
+import '../view_model/localImage.dart';
 
 class ImageDetailview extends StatefulWidget {
   const ImageDetailview({super.key});
@@ -18,17 +19,27 @@ class ImageDetailview extends StatefulWidget {
 class _ImageDetailviewState extends State<ImageDetailview> {
   @override
   Widget build(BuildContext context) {
-    final homeVM = Get.find<HomeScreenViewModel>();
+    final homeVM = Get.find<LocalImagesViewModel>();
 
-    int _index = homeVM.selectedIndex.value;
     return Scaffold(
-      appBar: AppBar(title: Text("image_detail".tr), centerTitle: true),
+      appBar: AppBar(
+        title: Text("image_detail".tr),
+        centerTitle: true,
+      ),
       body: SizedBox(
         height: 750.h,
         child: Obx(
-          () => PhotoViewGallery.builder(
+              () => PhotoViewGallery.builder(
             itemCount: homeVM.images.length,
+            pageController: PageController(
+              initialPage: homeVM.selectedIndex.value,
+            ),
+            scrollPhysics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
             builder: (context, index) {
+              final image = homeVM.images[index];
+              final meta = homeVM.localImages[index];
+
               return PhotoViewGalleryPageOptions.customChild(
                 child: Stack(
                   children: [
@@ -38,109 +49,142 @@ class _ImageDetailviewState extends State<ImageDetailview> {
                           homeVM.detail.value = !homeVM.detail.value;
                         },
                         child: PhotoView(
-                          imageProvider: FileImage(homeVM.images[index]),
+                          imageProvider: FileImage(image),
                           minScale: PhotoViewComputedScale.contained * 1,
                           maxScale: PhotoViewComputedScale.covered * 2,
                           heroAttributes: PhotoViewHeroAttributes(
-                            tag: homeVM.images[index].path,
+                            tag: image.path,
                           ),
                         ),
                       ),
                     ),
+
+                    // Top Info Bar
                     Obx(
-                      () => Visibility(
+                          () => Visibility(
                         visible: homeVM.detail.value,
                         child: Container(
                           height: 90.h,
                           width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Theme.of(
-                              context,
-                            ).primaryColor.withValues(alpha: 0.3),
-                          ),
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .primaryColor
+                                .withAlpha(80),
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text(Utils.dateToString(homeVM.localImages[index].date!),style: Theme.of(context).textTheme.titleLarge,), Text(Utils.timeToAmPm(homeVM.localImages[index].date!))],
+                            children: [
+                              Text(
+                                Utils.dateToString(meta.date!),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(color: AppColors.white),
+                              ),
+                              Text(
+                                Utils.timeToAmPm(meta.date!),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(color: AppColors.white),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
+
+                    // Bottom Actions Bar
                     Obx(
-                      () => Positioned(
+                          () => Positioned(
                         bottom: 0,
                         child: Visibility(
                           visible: homeVM.detail.value,
                           child: Container(
                             height: 90.h,
                             width: Get.width,
-                            decoration: BoxDecoration(
-                              color: Theme.of(
-                                context,
-                              ).primaryColor.withValues(alpha: 0.3),
-                            ),
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withAlpha(80),
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                // Download Button
                                 IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.share),
+                                  onPressed: () {
+                                    homeVM.downloadingStatus.value == false
+                                        ? homeVM.saveToGallery(image.path)
+                                        : Utils.toast(
+                                      "wait".tr,
+                                      AppColors.negativeRed,
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    Icons.download_outlined,
+                                    color: AppColors.white,
+                                  ),
                                 ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.edit),
-                                ),
+
+                                // Delete Button
                                 IconButton(
                                   onPressed: () {
                                     homeVM.removeImage(index);
                                   },
-                                  icon: Icon(Icons.delete_outline_outlined),
+                                  icon: const Icon(
+                                    Icons.delete_outline_outlined,
+                                    color: AppColors.white,
+                                  ),
                                 ),
+
+                                // Info Button
                                 IconButton(
                                   onPressed: () {
                                     showModalBottomSheet(
-                                      backgroundColor: Colors.transparent,
                                       context: context,
-
+                                      backgroundColor: Colors.transparent,
                                       builder: (BuildContext context) {
                                         return SafeArea(
                                           child: Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 10.w ,vertical: 10.h),
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 10.w,
+                                              vertical: 10.h,
+                                            ),
                                             child: Container(
-                                              decoration: BoxDecoration(
-                                                color:Theme.of(context).cardColor,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(20.r),
-                                                  topRight: Radius.circular(20.r),
-                                                  bottomLeft: Radius.circular(20.r),
-                                                  bottomRight: Radius.circular(20.r),
-                                                ),
-                                              ),
                                               height: 400.h,
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context).cardColor,
+                                                borderRadius: BorderRadius.circular(20.r),
+                                              ),
                                               child: Center(
                                                 child: Padding(
-                                                  padding:  EdgeInsets.symmetric(horizontal: 20.w),
+                                                  padding: EdgeInsets.symmetric(horizontal: 20.w),
                                                   child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     mainAxisSize: MainAxisSize.min,
                                                     children: [
-                                                      RichTextComponent("Name", homeVM.localImages[index].title!, context),
+                                                      RichTextComponent("name".tr, meta.title!, context),
                                                       15.verticalSpace,
-                                                      RichTextComponent("Description", homeVM.localImages[index].description!, context),
+                                                      RichTextComponent("description".tr, meta.description!, context),
                                                       15.verticalSpace,
-                                                      RichTextComponent("Date", Utils.dateToString(homeVM.localImages[index].date!), context),
+                                                      RichTextComponent("date".tr, Utils.dateToString(meta.date!), context),
                                                       15.verticalSpace,
-                                                      RichTextComponent("Time", Utils.timeToAmPm(homeVM.localImages[index].date!), context),
+                                                      RichTextComponent("time".tr, Utils.timeToAmPm(meta.date!), context),
                                                       15.verticalSpace,
-                                                      RichTextComponent("Size", "${homeVM.images[index].lengthSync() ~/ 1024} Kb", context),
+                                                      RichTextComponent("size".tr, "${image.lengthSync() ~/ 1024} Kb", context),
                                                       15.verticalSpace,
-                                                      RichTextComponent("Path", homeVM.images[index].toString(), context),
-
+                                                      RichTextComponent("path".tr, image.toString(), context),
                                                       30.verticalSpace,
-                                                      ButtonComponent(text: "Okay", onPressed:(){Get.back();},width: double.infinity,textColor: Theme.of(context).hintColor)
-
+                                                      ButtonComponent(
+                                                        text: "okay".tr,
+                                                        onPressed: () => Get.back(),
+                                                        width: double.infinity,
+                                                        textColor: AppColors.white,
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -151,7 +195,10 @@ class _ImageDetailviewState extends State<ImageDetailview> {
                                       },
                                     );
                                   },
-                                  icon: Icon(Icons.info_outline_rounded),
+                                  icon: const Icon(
+                                    Icons.info_outline_rounded,
+                                    color: AppColors.white,
+                                  ),
                                 ),
                               ],
                             ),
@@ -163,11 +210,6 @@ class _ImageDetailviewState extends State<ImageDetailview> {
                 ),
               );
             },
-            pageController: PageController(
-              initialPage: homeVM.selectedIndex.value,
-            ),
-            scrollPhysics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
           ),
         ),
       ),

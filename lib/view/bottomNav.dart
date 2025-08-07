@@ -16,10 +16,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final navBarVM = Get.put(NavBarViewModel());
-    List<Widget> pages = [HomeScreen(),SearchScreen(),SettingsScreen()];
+    List<Widget> pages = [HomeScreen(), SearchScreen(), SettingsScreen()];
 
     return Scaffold(
-      body: Obx(()=> IndexedStack(index: navBarVM.index, children: pages)),
+      body: Obx(() => IndexedStack(index: navBarVM.index, children: pages)),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           onTap: (value) {
@@ -31,7 +31,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
               icon: Icon(Icons.home_outlined),
               label: "home".tr,
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "search".tr),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: "search".tr,
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings_outlined),
               label: "settings".tr,

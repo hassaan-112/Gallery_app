@@ -1,5 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:gallery_app/database/database.dart';
 import 'package:gallery_app/model/localPicModel.dart';
 import 'package:get/get.dart';
@@ -7,33 +10,66 @@ import 'package:get/get.dart';
 import '../res/colors/appColors.dart';
 import '../utils/Utils.dart';
 
-class ImagesRepository{
+class ImagesRepository {
+  final _db = DBHelper.getInstance;
 
-  final _db =DBHelper.getInstance;
+  static const int maxSizeKB = 500;
 
-  Future<void> addImage(File image,String title,String description) async {
-    bool res = await _db.addImage(image.readAsBytesSync(),title,description);
-    if (res) {
-      Utils.toast("image_added".tr, AppColors.positiveGreen);
+  Future<void> addImage(File image, String title, String description) async {
+    Uint8List imageBytes = image.readAsBytesSync();
+    int imageSizeKB = imageBytes.lengthInBytes ~/ 1024;
+
+    if (imageSizeKB > maxSizeKB) {
+      Uint8List? compressedBytes = await FlutterImageCompress.compressWithFile(
+        image.absolute.path,
+        quality: 50,
+        format: CompressFormat.jpeg,
+      );
+
+      if (compressedBytes == null) {
+        Utils.toast("compression_failed".tr, AppColors.negativeRed);
+        return;
+      }
+
+      int compressedSizeKB = compressedBytes.lengthInBytes ~/ 1024;
+
+      if (compressedSizeKB > maxSizeKB) {
+        if (kDebugMode) {
+          print("Image too large even after compression: ${compressedSizeKB}KB");
+        }
+        Utils.toast("image_too_large".tr, AppColors.negativeRed);
+        return;
+      }
+
+      // Save compressed image
+      bool res = await _db.addImage(compressedBytes, title, description);
+      _handleResult(res);
+    } else {
+      //Save original image
+      bool res = await _db.addImage(imageBytes, title, description);
+      _handleResult(res);
     }
-    else {
+  }
+
+  void _handleResult(bool success) {
+    if (success) {
+      Utils.toast("image_added".tr, AppColors.positiveGreen);
+    } else {
       Utils.toast("image_not_added".tr, AppColors.negativeRed);
     }
-
-
   }
+
   Future<List<Local_Picture>> getImages() async {
     var result = await _db.getImages();
     List<Local_Picture> images = result.map((e) => Local_Picture.fromMap(e)).toList();
     return images;
   }
+
   Future<bool> deleteImage(int id) async {
     return await _db.deleteImage(id);
   }
+
   Future<bool> deleteAll() async {
     return await _db.deleteAll();
   }
-
-
-
 }

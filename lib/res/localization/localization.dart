@@ -34,6 +34,25 @@ class Languages extends Translations{
       "light":"Light",
       "dark":"Dark",
       "switch_language":"Switch Language",
+      "compression_failed":"Compression Failed",
+      "image_too_large":"Image too large",
+      "image_not_added":"Image not added",
+      "pic_id":"Picture ID",
+      "name":"Name",
+      "date":"Date",
+      "time":"Time",
+      "size":"Size",
+      "path":"Path",
+      "okay":"Okay",
+      "wait":"please wait",
+
+
+
+
+
+
+
+
     },
     "ur_PK":{
       "splashScreen":"گیلری",
@@ -66,6 +85,17 @@ class Languages extends Translations{
       "light":"روشنی",
       "dark":"اندھیرا",
       "switch_language":"زبان سوئچ کریں۔",
+      "compression_failed":"کمپریشن ناکام ہو گیا۔",
+      "image_too_large":"تصویر بہت بڑی ہے۔",
+      "image_not_added":"تصویر شامل نہیں کی گئی۔",
+      "pic_id":"تصویر کی شناخت",
+      "wait" :"براہ مہربانی انتظار کریں",
+      "name":"نام",
+      "date":"تاریخ",
+      "time":"وقت",
+      "size":"سائز",
+      "path":"راستہ",
+      "okay":"ٹھیک ہے۔",
 
     }
   };

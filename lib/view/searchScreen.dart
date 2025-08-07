@@ -19,8 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     final searchVM = Get.put(SearchViewModel());
     return Scaffold(
-      appBar: AppBar(title: Text("search".tr), centerTitle: true,
-      ),
+      appBar: AppBar(title: Text("search".tr), centerTitle: true),
       body: Padding(
         padding: EdgeInsets.all(10.r),
         child: Column(
@@ -30,7 +29,9 @@ class _SearchScreenState extends State<SearchScreen> {
               controller: searchVM.controller.value,
               keyboardType: TextInputType.text,
               focusNode: searchVM.focusNode.value,
-              validator: (value) {return null;},
+              validator: (value) {
+                return null;
+              },
               onSubmited: (value) {
                 if (value == "") {
                   searchVM.status.value = Status.IDLE;
@@ -48,8 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 if (searchVM.controller.value.text == "") {
                   searchVM.status.value = Status.IDLE;
                   Utils.toast("enter_text".tr, AppColors.negativeRed);
-                }
-                else if (searchVM.status != Status.LOADING) {
+                } else if (searchVM.status != Status.LOADING) {
                   searchVM.search();
                   searchVM.focusNode.value.unfocus();
                 }
@@ -62,42 +62,48 @@ class _SearchScreenState extends State<SearchScreen> {
                   return Center(child: CircularProgressIndicator());
                 case Status.COMPLETED:
                   return Expanded(
+                    child: GridView.builder(
+                      itemCount: searchVM.pictureClass!.photos!.length,
 
-                    child:
-
-                  GridView.builder(
-                    itemCount: searchVM.pictureClass!.photos!.length,
-
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: Get.width < 400 ? 2 : Get.width<600?3:Get.width<800?4:5,
-                      crossAxisSpacing: 3.r,
-                      mainAxisSpacing: 3.r,
-                    ),
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: (){
-                          searchVM.setSelectedIndex(index);
-                          Get.toNamed('/imageDetailScreen');
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
-                            border: Border.all(width: .5, color: Colors.grey),
-                            image: DecorationImage(
-                              image: NetworkImage(searchVM.pictureClass!.photos![index].src!.medium!),
-                              fit: BoxFit.scaleDown,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: Get.width < 400
+                            ? 2
+                            : Get.width < 600
+                            ? 3
+                            : Get.width < 800
+                            ? 4
+                            : 5,
+                        crossAxisSpacing: 3.r,
+                        mainAxisSpacing: 3.r,
+                      ),
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            searchVM.setSelectedIndex(index);
+                            Get.toNamed('/imageDetailScreen');
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+                              border: Border.all(width: .5, color: Colors.grey),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  searchVM
+                                      .pictureClass!
+                                      .photos![index]
+                                      .src!
+                                      .medium!,
+                                ),
+                                fit: BoxFit.scaleDown,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-
-
-
-                    );
+                        );
+                      },
+                    ),
+                  );
                 case Status.ERROR:
                   return Center(
                     child: Column(
@@ -114,8 +120,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       ],
                     ),
                   );
-                  case Status.IDLE:
-                    return Center(child:Text("search_something".tr));
+                case Status.IDLE:
+                  return Center(child: Text("search_something".tr));
               }
             }),
           ],

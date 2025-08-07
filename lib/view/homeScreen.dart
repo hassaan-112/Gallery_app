@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../res/colors/appColors.dart';
-import '../view_model/homeScreenVM.dart';
+import '../view_model/localImage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,19 +11,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final homeScreenVM = Get.find<HomeScreenViewModel>();
+  final homeScreenVM = Get.find<LocalImagesViewModel>();
   @override
   void initState() {
     super.initState();
     homeScreenVM.getLocalImages();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("home".tr),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text("home".tr), centerTitle: true),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.r),
         child: Column(
@@ -51,36 +48,47 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: 500.h,
 
-              child:Obx(
-                    () =>  homeScreenVM.images.isEmpty?Center(child: Text("no_image".tr)):GridView.builder(
-                  itemCount: homeScreenVM.images.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: Get.width < 400 ? 2 : Get.width<600?3:Get.width<800?4:5,
-                    crossAxisSpacing: 3.r,
-                    mainAxisSpacing: 3.r,
-                  ),
-
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: (){
-                        homeScreenVM.selectedIndex.value=index;
-                        Get.toNamed('/localImageDetailScreen');
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          border: Border.all(width: .5, color: Colors.grey),
-                          image: DecorationImage(
-                            image: FileImage(homeScreenVM.images[index]),
-                            fit: BoxFit.scaleDown,
-                          ),
+              child: Obx(
+                () => homeScreenVM.images.isEmpty
+                    ? Center(child: Text("no_image".tr))
+                    : GridView.builder(
+                        itemCount: homeScreenVM.images.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: Get.width < 400
+                              ? 2
+                              : Get.width < 600
+                              ? 3
+                              : Get.width < 800
+                              ? 4
+                              : 5,
+                          crossAxisSpacing: 3.r,
+                          mainAxisSpacing: 3.r,
                         ),
+
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              homeScreenVM.selectedIndex.value = index;
+                              Get.toNamed('/localImageDetailScreen');
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.r),
+                                border: Border.all(
+                                  width: .5,
+                                  color: Colors.grey,
+                                ),
+                                image: DecorationImage(
+                                  image: FileImage(homeScreenVM.images[index]),
+                                  fit: BoxFit.scaleDown,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ),
           ],

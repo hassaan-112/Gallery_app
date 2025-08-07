@@ -8,13 +8,16 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 import '../res/components/buttonComponent.dart';
+import '../utils/Utils.dart';
 
 class ImageDetailScreen extends StatelessWidget {
   const ImageDetailScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final searchVM = Get.put(SearchViewModel());
-    searchVM.showOptions=true.obs;
+    searchVM.showOptions = true.obs;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -22,7 +25,14 @@ class ImageDetailScreen extends StatelessWidget {
       ),
       body: PhotoViewGallery.builder(
         itemCount: searchVM.pictureClass!.photos!.length,
+        pageController: PageController(
+          initialPage: searchVM.selectedIndex.value,
+        ),
+        scrollPhysics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
         builder: (context, index) {
+          final photo = searchVM.pictureClass!.photos![index];
+
           return PhotoViewGalleryPageOptions.customChild(
             child: Stack(
               children: [
@@ -32,46 +42,49 @@ class ImageDetailScreen extends StatelessWidget {
                       searchVM.showOptions.value = !searchVM.showOptions.value;
                     },
                     child: PhotoView(
-                      imageProvider: NetworkImage(
-                        searchVM.pictureClass!.photos![index].src!.medium!,
-                      ),
+                      imageProvider: NetworkImage(photo.src!.medium!),
                       minScale: PhotoViewComputedScale.contained * 1,
                       maxScale: PhotoViewComputedScale.covered * 2,
-                      heroAttributes: PhotoViewHeroAttributes(
-                        tag: searchVM.pictureClass!.photos![index].url!,
-                      ),
+                      heroAttributes: PhotoViewHeroAttributes(tag: photo.url!),
                     ),
                   ),
                 ),
                 Obx(
-                  () => Positioned(
+                      () => Positioned(
                     top: 0,
                     child: Visibility(
                       visible: searchVM.showOptions.value,
                       child: Container(
                         alignment: Alignment.bottomCenter,
-                        height: 100.h,
+                        height: 90.h,
                         width: Get.width,
                         color: AppColors.darkBgColor,
                         child: SafeArea(
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.h),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-
                                 Text(
-                                  "Picture id: ${searchVM.pictureClass!.photos![index].id}",
-                                  style: Theme.of(context).textTheme.titleLarge,
+                                  "${"pic_id".tr}: ${photo.id}",
+                                  style: Theme.of(context).textTheme.titleLarge!.copyWith(color: AppColors.white),
+                                ),
+                                40.horizontalSpace,
+                                IconButton(
+                                  onPressed: () {
+                                    searchVM.downloadingStatus.value == false
+                                        ? searchVM.saveToGallery(photo.src!.original!)
+                                        : Utils.toast("wait".tr, AppColors.negativeRed);
+                                  },
+                                  icon: const Icon(Icons.download_outlined,color: AppColors.white,),
                                 ),
                                 10.horizontalSpace,
                                 IconButton(
                                   onPressed: () {
                                     showModalBottomSheet(
-                                      backgroundColor: Colors.transparent,
                                       context: context,
-
+                                      backgroundColor: Colors.transparent,
                                       builder: (BuildContext context) {
                                         return SafeArea(
                                           child: Padding(
@@ -80,71 +93,34 @@ class ImageDetailScreen extends StatelessWidget {
                                               vertical: 10.h,
                                             ),
                                             child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Theme.of(
-                                                  context,
-                                                ).cardColor,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(
-                                                    20.r,
-                                                  ),
-                                                  topRight: Radius.circular(
-                                                    20.r,
-                                                  ),
-                                                  bottomLeft: Radius.circular(
-                                                    20.r,
-                                                  ),
-                                                  bottomRight: Radius.circular(
-                                                    20.r,
-                                                  ),
-                                                ),
-                                              ),
                                               height: 300.h,
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(context).cardColor,
+                                                borderRadius: BorderRadius.circular(20.r),
+                                              ),
                                               child: Center(
                                                 child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: 20.w,
-                                                  ),
+                                                  padding: EdgeInsets.symmetric(horizontal: 20.w),
                                                   child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    mainAxisSize: MainAxisSize.min,
                                                     children: [
-                                                      RichTextComponent("photographer".tr, searchVM
-                                                          .pictureClass!
-                                                          .photos![index]
-                                                          .photographer!, context),
+                                                      RichTextComponent("photographer".tr, photo.photographer!, context),
                                                       10.verticalSpace,
-                                                      RichTextComponent("photographer_url".tr, searchVM
-                                                          .pictureClass!
-                                                          .photos![index]
-                                                          .photographerUrl!, context),
+                                                      RichTextComponent("photographer_url".tr, photo.photographerUrl!, context),
                                                       10.verticalSpace,
-                                                      RichTextComponent("photographer_id".tr, searchVM
-                                                          .pictureClass!
-                                                          .photos![index]
-                                                          .photographerId!.toString(), context),
+                                                      RichTextComponent("photographer_id".tr, photo.photographerId!.toString(), context),
                                                       10.verticalSpace,
-                                                      RichTextComponent("description".tr,searchVM
-                                                          .pictureClass!
-                                                          .photos![index]
-                                                          .alt!,context),
+                                                      RichTextComponent("description".tr, photo.alt!, context),
                                                       30.verticalSpace,
-
                                                       ButtonComponent(
-                                                        text: "Okay",
+                                                        text: "okay".tr,
                                                         onPressed: () {
                                                           Get.back();
                                                         },
                                                         width: double.infinity,
-                                                        textColor: Theme.of(
-                                                          context,
-                                                        ).hintColor,
+                                                        textColor: Theme.of(context).hintColor,
                                                       ),
                                                     ],
                                                   ),
@@ -156,7 +132,7 @@ class ImageDetailScreen extends StatelessWidget {
                                       },
                                     );
                                   },
-                                  icon: Icon(Icons.info_outline_rounded),
+                                  icon: const Icon(Icons.info_outline_rounded,color: AppColors.white,),
                                 ),
                               ],
                             ),
@@ -170,11 +146,6 @@ class ImageDetailScreen extends StatelessWidget {
             ),
           );
         },
-        pageController: PageController(
-          initialPage: searchVM.selectedIndex.value,
-        ),
-        scrollPhysics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
       ),
     );
   }

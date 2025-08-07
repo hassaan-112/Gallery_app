@@ -3,34 +3,38 @@ import 'package:get/get.dart';
 
 import '../repository/settingsRepository.dart';
 
-class SettingsViewModel extends GetxController{
+class SettingsViewModel extends GetxController {
   final _settingsRepository = SettingsRepository();
   final currentTheme = ThemeMode.system.obs;
   RxInt radioValue = 1.obs;
 
-  void setRadioValue(int value){radioValue.value=value;}
+  void setRadioValue(int value) {
+    radioValue.value = value;
+  }
 
-  changeTheme(ThemeMode themeMode){
+  changeTheme(ThemeMode themeMode) {
     _settingsRepository.saveThemeMode(themeMode);
     currentTheme.value = themeMode;
     Get.changeThemeMode(themeMode);
   }
-  getTheme()async{
-    final theme =await _settingsRepository.getThemeMode();
+
+  getTheme() async {
+    final theme = await _settingsRepository.getThemeMode();
     currentTheme.value = theme;
-    radioValue.value = theme == ThemeMode.light ? 2 : theme == ThemeMode.dark ? 3 : 1;
+    radioValue.value = theme == ThemeMode.light
+        ? 2
+        : theme == ThemeMode.dark
+        ? 3
+        : 1;
   }
 
-  changeLanguage(){
-
-    if(Get.locale!.languageCode=="en"){
-      Get.updateLocale(Locale("ur","PK"));
+  changeLanguage() {
+    if (Get.locale!.languageCode == "en") {
+      Get.updateLocale(Locale("ur", "PK"));
       _settingsRepository.saveLanguage("ur");
-    }else{
-      Get.updateLocale(Locale("en","US"));
+    } else {
+      Get.updateLocale(Locale("en", "US"));
       _settingsRepository.saveLanguage("en");
     }
   }
-
-
 }

@@ -44,8 +44,6 @@ class Utils {
     String amPm=time.hour>=12?"PM":"AM";
     hour = (time.hour>=12?(time.hour-12).toString():time.hour.toString());
     return "$hour:$minute:$second $amPm";
-
-
   }
 
 }
