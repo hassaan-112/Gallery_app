@@ -33,7 +33,6 @@ class LocalImagesViewModel extends GetxController {
   final titleFocusNode = FocusNode();
   final descriptionFocusNode = FocusNode();
 
-
   Future<void> getLocalImages() async {
     localImages.value = await _imgRepo.getImages();
     await toFileList();
@@ -56,7 +55,6 @@ class LocalImagesViewModel extends GetxController {
     }
   }
 
-
   Future<void> selectImage(ImageSource source) async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: source);
@@ -67,7 +65,6 @@ class LocalImagesViewModel extends GetxController {
 
     updater.value = !updater.value;
   }
-
 
   void addImage(File? image) async {
     if (loading.value) return;
@@ -99,7 +96,6 @@ class LocalImagesViewModel extends GetxController {
     }
   }
 
-
   void removeImage(int index) {
     _imgRepo.deleteImage(localImages[index].id!);
     images.removeAt(index);
@@ -110,7 +106,6 @@ class LocalImagesViewModel extends GetxController {
       Get.back();
     }
   }
-
 
   void deleteAll() {
     _imgRepo.deleteAll();

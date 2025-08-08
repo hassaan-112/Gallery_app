@@ -3,7 +3,7 @@ import 'package:gallery_app/res/colors/appColors.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import '../permissions.dart';
+import '../permissions/permissions.dart';
 import '../res/components/ImageBox.dart';
 import '../res/components/buttonComponent.dart';
 import '../res/components/textFormFieldComponent.dart';
